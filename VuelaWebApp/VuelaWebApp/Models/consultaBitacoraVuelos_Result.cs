@@ -13,11 +13,11 @@ namespace VuelaWebApp.Models
     
     public partial class consultaBitacoraVuelos_Result
     {
-        public string cliente { get; set; }
-        public string origen { get; set; }
-        public string destino { get; set; }
-        public System.DateTime horapartida { get; set; }
-        public System.DateTime horallegada { get; set; }
-        public string estado { get; set; }
+        public string Cliente { get; set; }
+        public string PaisOrigen { get; set; }
+        public string PaisDestino { get; set; }
+        public System.DateTime HoraPartida { get; set; }
+        public System.DateTime HoraLlegada { get; set; }
+        public string Estado { get; set; }
     }
 }

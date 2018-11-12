@@ -690,12 +690,12 @@ advertencia 6035: La relación 'fk_pase_cliente' tiene columnas que no forman pa
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="consultaBitacoraVuelos_Result">
-          <Property Type="String" Name="cliente" Nullable="false" MaxLength="20" />
-          <Property Type="String" Name="origen" Nullable="false" MaxLength="20" />
-          <Property Type="String" Name="destino" Nullable="true" MaxLength="20" />
-          <Property Type="DateTime" Name="horapartida" Nullable="false" Precision="23" />
-          <Property Type="DateTime" Name="horallegada" Nullable="false" Precision="23" />
-          <Property Type="String" Name="estado" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Cliente" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="PaisOrigen" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="PaisDestino" Nullable="true" MaxLength="20" />
+          <Property Type="DateTime" Name="HoraPartida" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="HoraLlegada" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Estado" Nullable="true" MaxLength="20" />
         </ComplexType>
         <ComplexType Name="consultaFitradaVuelos_Result">
           <Property Type="Int32" Name="idlineavuelo" Nullable="false" />
@@ -822,12 +822,12 @@ advertencia 6035: La relación 'fk_pase_cliente' tiene columnas que no forman pa
           <FunctionImportMapping FunctionImportName="consultaBitacoraVuelos" FunctionName="Model.Store.consultaBitacoraVuelos">
             <ResultMapping>
               <ComplexTypeMapping TypeName="Model.consultaBitacoraVuelos_Result">
-                <ScalarProperty Name="cliente" ColumnName="cliente" />
-                <ScalarProperty Name="origen" ColumnName="origen" />
-                <ScalarProperty Name="destino" ColumnName="destino" />
-                <ScalarProperty Name="horapartida" ColumnName="horapartida" />
-                <ScalarProperty Name="horallegada" ColumnName="horallegada" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+                <ScalarProperty Name="PaisOrigen" ColumnName="PaisOrigen" />
+                <ScalarProperty Name="PaisDestino" ColumnName="PaisDestino" />
+                <ScalarProperty Name="HoraPartida" ColumnName="HoraPartida" />
+                <ScalarProperty Name="HoraLlegada" ColumnName="HoraLlegada" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
