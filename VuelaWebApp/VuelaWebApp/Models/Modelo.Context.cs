@@ -227,5 +227,31 @@ namespace VuelaWebApp.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("insertarVuelo", idVueloParameter, paisOrigenParameter, paisDestinoParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> cambiarVuelo(Nullable<int> idPase, string pasaporte, Nullable<int> idLineaVuelo)
+        {
+            var idPaseParameter = idPase.HasValue ?
+                new ObjectParameter("idPase", idPase) :
+                new ObjectParameter("idPase", typeof(int));
+    
+            var pasaporteParameter = pasaporte != null ?
+                new ObjectParameter("pasaporte", pasaporte) :
+                new ObjectParameter("pasaporte", typeof(string));
+    
+            var idLineaVueloParameter = idLineaVuelo.HasValue ?
+                new ObjectParameter("idLineaVuelo", idLineaVuelo) :
+                new ObjectParameter("idLineaVuelo", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("cambiarVuelo", idPaseParameter, pasaporteParameter, idLineaVueloParameter);
+        }
+    
+        public virtual ObjectResult<string> tipoUsuario(string usuario)
+        {
+            var usuarioParameter = usuario != null ?
+                new ObjectParameter("usuario", usuario) :
+                new ObjectParameter("usuario", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("tipoUsuario", usuarioParameter);
+        }
     }
 }

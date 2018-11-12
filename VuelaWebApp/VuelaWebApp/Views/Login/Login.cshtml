@@ -1,0 +1,69 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "Login";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="~/Content/Login.css" rel="stylesheet" type="text/css" />
+    <link href="Content/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" />
+    <title>Iniciar Sesion</title>
+    <!-- Bootstrap core CSS -->
+    <link href="~/Boostratp/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Custom fonts for this template -->
+    <link href="~/Boostratp/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="~/Boostratp/css/sb-admin.css" rel="stylesheet" />
+</head>
+
+<body>
+    <form method="post" action="~/Login/Login">
+        <div class="card card-container">
+            <h4 class="text-center">Bienvenido a Vuela S.A.</h4>
+            <hr />
+            <img id="profile-img" class="profile-img-card" src="/images/Vuela-Logo.jpeg" />
+
+            <span id="reauth-email" class="reauth-email"></span>
+
+            <div class="form-group">
+                <label for="username" class="cols-sm-2 control-label">Nombre de Usuario</label>
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                        <input class="form-control" id="exampleInputEmail1" name="correoElectronico" aria-describedby="emailHelp" placeholder="Correo electronico">
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label for="password" class="cols-sm-2 control-label">Password</label>
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                        <input type="password" class="form-control" id="exampleInputPassword1" name="contraseña" placeholder="Contraseña">
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <button type="submit" class="btn btn-lg btn-info  btn-signin">Iniciar Sesion</button>
+            <hr />
+            <button type="submit" class="btn btn-lg btn-info  btn-signin">Registrarse</button>
+            @if (ViewBag.Error != "")
+            {
+            <div class="text-danger form-group">
+                @ViewBag.Error
+            </div>
+             }
+
+
+            <!-- /form -->
+
+        </div><!-- /card-container -->
+    </form>
+</body>
+</html>

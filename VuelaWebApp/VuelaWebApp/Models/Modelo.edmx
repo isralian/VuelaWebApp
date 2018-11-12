@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'VuelaSA-emja.dbo.bitacoravueloscliente' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="bitacoravueloscliente">
@@ -239,6 +239,11 @@ advertencia 6035: La relación 'fk_pase_cliente' tiene columnas que no forman pa
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="cambiarVuelo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idPase" Type="int" Mode="In" />
+          <Parameter Name="pasaporte" Type="varchar" Mode="In" />
+          <Parameter Name="idLineaVuelo" Type="int" Mode="In" />
+        </Function>
         <Function Name="cancelarVuelo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idPase" Type="int" Mode="In" />
           <Parameter Name="pasaporte" Type="varchar" Mode="In" />
@@ -293,6 +298,9 @@ advertencia 6035: La relación 'fk_pase_cliente' tiene columnas que no forman pa
           <Parameter Name="idVuelo" Type="int" Mode="In" />
           <Parameter Name="paisOrigen" Type="int" Mode="In" />
           <Parameter Name="paisDestino" Type="int" Mode="In" />
+        </Function>
+        <Function Name="tipoUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="usuario" Type="varchar" Mode="In" />
         </Function>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="cliente" EntityType="Self.cliente" Schema="dbo" store:Type="Tables" />
@@ -355,8 +363,7 @@ advertencia 6035: La relación 'fk_pase_cliente' tiene columnas que no forman pa
             <End Role="vuelo" EntitySet="vuelo" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -627,7 +634,7 @@ advertencia 6035: La relación 'fk_pase_cliente' tiene columnas que no forman pa
             <Parameter Name="pasaporte" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="consultaBitacoraVuelos" ReturnType="Collection(Model.consultaBitacoraVuelos_Result)">
-            <Parameter Name="cliente" Mode="In" Type="String" />
+          <Parameter Name="cliente" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="consultaFitradaVuelos" ReturnType="Collection(Model.consultaFitradaVuelos_Result)">
             <Parameter Name="nbrPaisOrigen" Mode="In" Type="String" />
@@ -672,6 +679,14 @@ advertencia 6035: La relación 'fk_pase_cliente' tiene columnas que no forman pa
             <Parameter Name="idVuelo" Mode="In" Type="Int32" />
             <Parameter Name="paisOrigen" Mode="In" Type="Int32" />
             <Parameter Name="paisDestino" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="cambiarVuelo" ReturnType="Collection(Int32)">
+            <Parameter Name="idPase" Mode="In" Type="Int32" />
+            <Parameter Name="pasaporte" Mode="In" Type="String" />
+            <Parameter Name="idLineaVuelo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="tipoUsuario" ReturnType="Collection(String)">
+            <Parameter Name="usuario" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="consultaBitacoraVuelos_Result">
@@ -848,6 +863,8 @@ advertencia 6035: La relación 'fk_pase_cliente' tiene columnas que no forman pa
           <FunctionImportMapping FunctionImportName="insertarLineaVuelo" FunctionName="Model.Store.insertarLineaVuelo" />
           <FunctionImportMapping FunctionImportName="insertarPaseAbordar" FunctionName="Model.Store.insertarPaseAbordar" />
           <FunctionImportMapping FunctionImportName="insertarVuelo" FunctionName="Model.Store.insertarVuelo" />
+          <FunctionImportMapping FunctionImportName="cambiarVuelo" FunctionName="Model.Store.cambiarVuelo" />
+          <FunctionImportMapping FunctionImportName="tipoUsuario" FunctionName="Model.Store.tipoUsuario" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
