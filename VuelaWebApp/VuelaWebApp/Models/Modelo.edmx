@@ -1,0 +1,874 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'VuelaSA-emja.dbo.bitacoravueloscliente' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="bitacoravueloscliente">
+          <Key>
+            <PropertyRef Name="cliente" />
+            <PropertyRef Name="origen" />
+            <PropertyRef Name="horapartida" />
+            <PropertyRef Name="horallegada" />
+          </Key>
+          <Property Name="cliente" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="origen" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="destino" Type="varchar" MaxLength="20" />
+          <Property Name="horapartida" Type="datetime" Nullable="false" />
+          <Property Name="horallegada" Type="datetime" Nullable="false" />
+          <Property Name="estado" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="cliente">
+          <Key>
+            <PropertyRef Name="usuario" />
+          </Key>
+          <Property Name="usuario" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="correo" Type="varchar" MaxLength="50" />
+          <Property Name="paisresidencia" Type="int" Nullable="false" />
+          <Property Name="pasaporte" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="cuenta">
+          <Key>
+            <PropertyRef Name="usuario" />
+          </Key>
+          <Property Name="usuario" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="clave" Type="varchar" MaxLength="20" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="empleado">
+          <Key>
+            <PropertyRef Name="usuario" />
+          </Key>
+          <Property Name="usuario" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="idempleado" Type="numeric" Precision="10" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="equipaje">
+          <Key>
+            <PropertyRef Name="idequipaje" />
+          </Key>
+          <Property Name="idequipaje" Type="int" Nullable="false" />
+          <Property Name="cliente" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="peso" Type="numeric" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="equipajevuelo">
+          <Key>
+            <PropertyRef Name="idlineavuelo" />
+            <PropertyRef Name="idequipaje" />
+          </Key>
+          <Property Name="idlineavuelo" Type="int" Nullable="false" />
+          <Property Name="idequipaje" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="lineavuelo">
+          <Key>
+            <PropertyRef Name="idlineavuelo" />
+          </Key>
+          <Property Name="idlineavuelo" Type="int" Nullable="false" />
+          <Property Name="idvuelo" Type="int" Nullable="false" />
+          <Property Name="horapartida" Type="datetime" Nullable="false" />
+          <Property Name="horallegada" Type="datetime" Nullable="false" />
+          <Property Name="cantescalas" Type="numeric" Precision="2" Scale="0" />
+          <Property Name="precio" Type="numeric" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="pais">
+          <Key>
+            <PropertyRef Name="idpais" />
+          </Key>
+          <Property Name="idpais" Type="int" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="pase">
+          <Key>
+            <PropertyRef Name="idpase" />
+          </Key>
+          <Property Name="idpase" Type="int" Nullable="false" />
+          <Property Name="idlineavuelo" Type="int" Nullable="false" />
+          <Property Name="numeroasiento" Type="varchar" MaxLength="4" />
+          <Property Name="pasaporte" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="usado" Type="bit" />
+        </EntityType>
+        <EntityType Name="vuelo">
+          <Key>
+            <PropertyRef Name="idvuelo" />
+          </Key>
+          <Property Name="idvuelo" Type="int" Nullable="false" />
+          <Property Name="origen" Type="int" Nullable="false" />
+          <Property Name="destino" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_bitacoravueloscliente_cliente">
+          <End Role="cliente" Type="Self.cliente" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="bitacoravueloscliente" Type="Self.bitacoravueloscliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cliente">
+              <PropertyRef Name="usuario" />
+            </Principal>
+            <Dependent Role="bitacoravueloscliente">
+              <PropertyRef Name="cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_cliente_pais">
+          <End Role="pais" Type="Self.pais" Multiplicity="1" />
+          <End Role="cliente" Type="Self.cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pais">
+              <PropertyRef Name="idpais" />
+            </Principal>
+            <Dependent Role="cliente">
+              <PropertyRef Name="paisresidencia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_cliente_usuario">
+          <End Role="cuenta" Type="Self.cuenta" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="cliente" Type="Self.cliente" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="cuenta">
+              <PropertyRef Name="usuario" />
+            </Principal>
+            <Dependent Role="cliente">
+              <PropertyRef Name="usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_empleado_cuenta">
+          <End Role="cuenta" Type="Self.cuenta" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="empleado" Type="Self.empleado" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="cuenta">
+              <PropertyRef Name="usuario" />
+            </Principal>
+            <Dependent Role="empleado">
+              <PropertyRef Name="usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errores durante la generación:
+advertencia 6035: La relación 'fk_equipaje_cliente' tiene columnas que no forman parte de la clave de la tabla en el lado principal de la relación. Se excluyó la relación.
+        <Association Name="fk_equipaje_cliente" />-->
+        <Association Name="fk_equipajevuelo_equipaje">
+          <End Role="equipaje" Type="Self.equipaje" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="equipajevuelo" Type="Self.equipajevuelo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="equipaje">
+              <PropertyRef Name="idequipaje" />
+            </Principal>
+            <Dependent Role="equipajevuelo">
+              <PropertyRef Name="idequipaje" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_equipajevuelo_lineavuelo">
+          <End Role="lineavuelo" Type="Self.lineavuelo" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="equipajevuelo" Type="Self.equipajevuelo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lineavuelo">
+              <PropertyRef Name="idlineavuelo" />
+            </Principal>
+            <Dependent Role="equipajevuelo">
+              <PropertyRef Name="idlineavuelo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_lineavuelo_vuelo">
+          <End Role="vuelo" Type="Self.vuelo" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="lineavuelo" Type="Self.lineavuelo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="vuelo">
+              <PropertyRef Name="idvuelo" />
+            </Principal>
+            <Dependent Role="lineavuelo">
+              <PropertyRef Name="idvuelo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errores durante la generación:
+advertencia 6035: La relación 'fk_pase_cliente' tiene columnas que no forman parte de la clave de la tabla en el lado principal de la relación. Se excluyó la relación.
+        <Association Name="fk_pase_cliente" />-->
+        <Association Name="fk_pase_lineavuelo">
+          <End Role="lineavuelo" Type="Self.lineavuelo" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="pase" Type="Self.pase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lineavuelo">
+              <PropertyRef Name="idlineavuelo" />
+            </Principal>
+            <Dependent Role="pase">
+              <PropertyRef Name="idlineavuelo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_vuelo_destino">
+          <End Role="pais" Type="Self.pais" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="vuelo" Type="Self.vuelo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pais">
+              <PropertyRef Name="idpais" />
+            </Principal>
+            <Dependent Role="vuelo">
+              <PropertyRef Name="destino" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_vuelo_origen">
+          <End Role="pais" Type="Self.pais" Multiplicity="1" />
+          <End Role="vuelo" Type="Self.vuelo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pais">
+              <PropertyRef Name="idpais" />
+            </Principal>
+            <Dependent Role="vuelo">
+              <PropertyRef Name="origen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="cancelarVuelo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idPase" Type="int" Mode="In" />
+          <Parameter Name="pasaporte" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="checkIn" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idPase" Type="int" Mode="In" />
+          <Parameter Name="pasaporte" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="consultaBitacoraVuelos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cliente" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="consultaFitradaVuelos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nbrPaisOrigen" Type="varchar" Mode="In" />
+          <Parameter Name="nbrPaisDestino" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="consultaGeneralVuelos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="insertarAdministrador" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idEmpleado" Type="numeric" Mode="In" />
+          <Parameter Name="usuario" Type="varchar" Mode="In" />
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+          <Parameter Name="clave" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="insertarCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nbrUsuario" Type="varchar" Mode="In" />
+          <Parameter Name="clave" Type="varchar" Mode="In" />
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+          <Parameter Name="correo" Type="varchar" Mode="In" />
+          <Parameter Name="paisResidencia" Type="int" Mode="In" />
+          <Parameter Name="pasaporte" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="insertarEquipaje" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idEquipaje" Type="int" Mode="In" />
+          <Parameter Name="pasaporte" Type="varchar" Mode="In" />
+          <Parameter Name="peso" Type="numeric" Mode="In" />
+          <Parameter Name="idLineaVuelo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="insertarLineaVuelo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idLineaVuelo" Type="int" Mode="In" />
+          <Parameter Name="idVuelo" Type="int" Mode="In" />
+          <Parameter Name="horaPartida" Type="datetime" Mode="In" />
+          <Parameter Name="horaLlegada" Type="datetime" Mode="In" />
+          <Parameter Name="cantEscalas" Type="numeric" Mode="In" />
+          <Parameter Name="precio" Type="numeric" Mode="In" />
+        </Function>
+        <Function Name="insertarPaseAbordar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idPase" Type="int" Mode="In" />
+          <Parameter Name="idLineaVuelo" Type="int" Mode="In" />
+          <Parameter Name="numeroAsiento" Type="varchar" Mode="In" />
+          <Parameter Name="pasaporte" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="insertarVuelo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idVuelo" Type="int" Mode="In" />
+          <Parameter Name="paisOrigen" Type="int" Mode="In" />
+          <Parameter Name="paisDestino" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="cliente" EntityType="Self.cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cuenta" EntityType="Self.cuenta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="empleado" EntityType="Self.empleado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="equipaje" EntityType="Self.equipaje" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="equipajevuelo" EntityType="Self.equipajevuelo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="lineavuelo" EntityType="Self.lineavuelo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pais" EntityType="Self.pais" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pase" EntityType="Self.pase" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vuelo" EntityType="Self.vuelo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="bitacoravueloscliente" EntityType="Self.bitacoravueloscliente" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [bitacoravueloscliente].[cliente] AS [cliente], 
+    [bitacoravueloscliente].[origen] AS [origen], 
+    [bitacoravueloscliente].[destino] AS [destino], 
+    [bitacoravueloscliente].[horapartida] AS [horapartida], 
+    [bitacoravueloscliente].[horallegada] AS [horallegada], 
+    [bitacoravueloscliente].[estado] AS [estado]
+    FROM [dbo].[bitacoravueloscliente] AS [bitacoravueloscliente]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="fk_bitacoravueloscliente_cliente" Association="Self.fk_bitacoravueloscliente_cliente">
+            <End Role="cliente" EntitySet="cliente" />
+            <End Role="bitacoravueloscliente" EntitySet="bitacoravueloscliente" />
+          </AssociationSet>
+          <AssociationSet Name="fk_cliente_pais" Association="Self.fk_cliente_pais">
+            <End Role="pais" EntitySet="pais" />
+            <End Role="cliente" EntitySet="cliente" />
+          </AssociationSet>
+          <AssociationSet Name="fk_cliente_usuario" Association="Self.fk_cliente_usuario">
+            <End Role="cuenta" EntitySet="cuenta" />
+            <End Role="cliente" EntitySet="cliente" />
+          </AssociationSet>
+          <AssociationSet Name="fk_empleado_cuenta" Association="Self.fk_empleado_cuenta">
+            <End Role="cuenta" EntitySet="cuenta" />
+            <End Role="empleado" EntitySet="empleado" />
+          </AssociationSet>
+          <AssociationSet Name="fk_equipajevuelo_equipaje" Association="Self.fk_equipajevuelo_equipaje">
+            <End Role="equipaje" EntitySet="equipaje" />
+            <End Role="equipajevuelo" EntitySet="equipajevuelo" />
+          </AssociationSet>
+          <AssociationSet Name="fk_equipajevuelo_lineavuelo" Association="Self.fk_equipajevuelo_lineavuelo">
+            <End Role="lineavuelo" EntitySet="lineavuelo" />
+            <End Role="equipajevuelo" EntitySet="equipajevuelo" />
+          </AssociationSet>
+          <AssociationSet Name="fk_lineavuelo_vuelo" Association="Self.fk_lineavuelo_vuelo">
+            <End Role="vuelo" EntitySet="vuelo" />
+            <End Role="lineavuelo" EntitySet="lineavuelo" />
+          </AssociationSet>
+          <AssociationSet Name="fk_pase_lineavuelo" Association="Self.fk_pase_lineavuelo">
+            <End Role="lineavuelo" EntitySet="lineavuelo" />
+            <End Role="pase" EntitySet="pase" />
+          </AssociationSet>
+          <AssociationSet Name="fk_vuelo_destino" Association="Self.fk_vuelo_destino">
+            <End Role="pais" EntitySet="pais" />
+            <End Role="vuelo" EntitySet="vuelo" />
+          </AssociationSet>
+          <AssociationSet Name="fk_vuelo_origen" Association="Self.fk_vuelo_origen">
+            <End Role="pais" EntitySet="pais" />
+            <End Role="vuelo" EntitySet="vuelo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="cliente">
+          <Key>
+            <PropertyRef Name="usuario" />
+          </Key>
+          <Property Name="usuario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="paisresidencia" Type="Int32" Nullable="false" />
+          <Property Name="pasaporte" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="bitacoravueloscliente" Relationship="Self.fk_bitacoravueloscliente_cliente" FromRole="cliente" ToRole="bitacoravueloscliente" />
+          <NavigationProperty Name="pais" Relationship="Self.fk_cliente_pais" FromRole="cliente" ToRole="pais" />
+          <NavigationProperty Name="cuenta" Relationship="Self.fk_cliente_usuario" FromRole="cliente" ToRole="cuenta" />
+        </EntityType>
+        <EntityType Name="cuenta">
+          <Key>
+            <PropertyRef Name="usuario" />
+          </Key>
+          <Property Name="usuario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="clave" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="cliente" Relationship="Self.fk_cliente_usuario" FromRole="cuenta" ToRole="cliente" />
+          <NavigationProperty Name="empleado" Relationship="Self.fk_empleado_cuenta" FromRole="cuenta" ToRole="empleado" />
+        </EntityType>
+        <EntityType Name="empleado">
+          <Key>
+            <PropertyRef Name="usuario" />
+          </Key>
+          <Property Name="usuario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idempleado" Type="Decimal" Precision="10" Scale="0" Nullable="false" />
+          <NavigationProperty Name="cuenta" Relationship="Self.fk_empleado_cuenta" FromRole="empleado" ToRole="cuenta" />
+        </EntityType>
+        <EntityType Name="equipaje">
+          <Key>
+            <PropertyRef Name="idequipaje" />
+          </Key>
+          <Property Name="idequipaje" Type="Int32" Nullable="false" />
+          <Property Name="cliente" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="peso" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="lineavuelo" Relationship="Self.equipajevuelo" FromRole="equipaje" ToRole="lineavuelo" />
+        </EntityType>
+        <EntityType Name="lineavuelo">
+          <Key>
+            <PropertyRef Name="idlineavuelo" />
+          </Key>
+          <Property Name="idlineavuelo" Type="Int32" Nullable="false" />
+          <Property Name="idvuelo" Type="Int32" Nullable="false" />
+          <Property Name="horapartida" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="horallegada" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="cantescalas" Type="Decimal" Precision="2" Scale="0" />
+          <Property Name="precio" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="vuelo" Relationship="Self.fk_lineavuelo_vuelo" FromRole="lineavuelo" ToRole="vuelo" />
+          <NavigationProperty Name="pase" Relationship="Self.fk_pase_lineavuelo" FromRole="lineavuelo" ToRole="pase" />
+          <NavigationProperty Name="equipaje" Relationship="Self.equipajevuelo" FromRole="lineavuelo" ToRole="equipaje" />
+        </EntityType>
+        <EntityType Name="pais">
+          <Key>
+            <PropertyRef Name="idpais" />
+          </Key>
+          <Property Name="idpais" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="cliente" Relationship="Self.fk_cliente_pais" FromRole="pais" ToRole="cliente" />
+          <NavigationProperty Name="vuelo" Relationship="Self.fk_vuelo_destino" FromRole="pais" ToRole="vuelo" />
+          <NavigationProperty Name="vuelo1" Relationship="Self.fk_vuelo_origen" FromRole="pais" ToRole="vuelo" />
+        </EntityType>
+        <EntityType Name="pase">
+          <Key>
+            <PropertyRef Name="idpase" />
+          </Key>
+          <Property Name="idpase" Type="Int32" Nullable="false" />
+          <Property Name="idlineavuelo" Type="Int32" Nullable="false" />
+          <Property Name="numeroasiento" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="pasaporte" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="usado" Type="Boolean" />
+          <NavigationProperty Name="lineavuelo" Relationship="Self.fk_pase_lineavuelo" FromRole="pase" ToRole="lineavuelo" />
+        </EntityType>
+        <EntityType Name="vuelo">
+          <Key>
+            <PropertyRef Name="idvuelo" />
+          </Key>
+          <Property Name="idvuelo" Type="Int32" Nullable="false" />
+          <Property Name="origen" Type="Int32" Nullable="false" />
+          <Property Name="destino" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="lineavuelo" Relationship="Self.fk_lineavuelo_vuelo" FromRole="vuelo" ToRole="lineavuelo" />
+          <NavigationProperty Name="pais" Relationship="Self.fk_vuelo_destino" FromRole="vuelo" ToRole="pais" />
+          <NavigationProperty Name="pais1" Relationship="Self.fk_vuelo_origen" FromRole="vuelo" ToRole="pais" />
+        </EntityType>
+        <EntityType Name="bitacoravueloscliente">
+          <Key>
+            <PropertyRef Name="cliente" />
+            <PropertyRef Name="origen" />
+            <PropertyRef Name="horapartida" />
+            <PropertyRef Name="horallegada" />
+          </Key>
+          <Property Name="cliente" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="origen" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="destino" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="horapartida" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="horallegada" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="estado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="cliente1" Relationship="Self.fk_bitacoravueloscliente_cliente" FromRole="bitacoravueloscliente" ToRole="cliente" />
+        </EntityType>
+        <Association Name="fk_bitacoravueloscliente_cliente">
+          <End Role="cliente" Type="Self.cliente" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="bitacoravueloscliente" Type="Self.bitacoravueloscliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cliente">
+              <PropertyRef Name="usuario" />
+            </Principal>
+            <Dependent Role="bitacoravueloscliente">
+              <PropertyRef Name="cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_cliente_pais">
+          <End Role="pais" Type="Self.pais" Multiplicity="1" />
+          <End Role="cliente" Type="Self.cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pais">
+              <PropertyRef Name="idpais" />
+            </Principal>
+            <Dependent Role="cliente">
+              <PropertyRef Name="paisresidencia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_cliente_usuario">
+          <End Role="cuenta" Type="Self.cuenta" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="cliente" Type="Self.cliente" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="cuenta">
+              <PropertyRef Name="usuario" />
+            </Principal>
+            <Dependent Role="cliente">
+              <PropertyRef Name="usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_empleado_cuenta">
+          <End Role="cuenta" Type="Self.cuenta" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="empleado" Type="Self.empleado" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="cuenta">
+              <PropertyRef Name="usuario" />
+            </Principal>
+            <Dependent Role="empleado">
+              <PropertyRef Name="usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_lineavuelo_vuelo">
+          <End Role="vuelo" Type="Self.vuelo" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="lineavuelo" Type="Self.lineavuelo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="vuelo">
+              <PropertyRef Name="idvuelo" />
+            </Principal>
+            <Dependent Role="lineavuelo">
+              <PropertyRef Name="idvuelo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_pase_lineavuelo">
+          <End Role="lineavuelo" Type="Self.lineavuelo" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="pase" Type="Self.pase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="lineavuelo">
+              <PropertyRef Name="idlineavuelo" />
+            </Principal>
+            <Dependent Role="pase">
+              <PropertyRef Name="idlineavuelo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_vuelo_destino">
+          <End Role="pais" Type="Self.pais" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="vuelo" Type="Self.vuelo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pais">
+              <PropertyRef Name="idpais" />
+            </Principal>
+            <Dependent Role="vuelo">
+              <PropertyRef Name="destino" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_vuelo_origen">
+          <End Role="pais" Type="Self.pais" Multiplicity="1" />
+          <End Role="vuelo" Type="Self.vuelo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pais">
+              <PropertyRef Name="idpais" />
+            </Principal>
+            <Dependent Role="vuelo">
+              <PropertyRef Name="origen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="equipajevuelo">
+          <End Role="equipaje" Type="Self.equipaje" Multiplicity="*" />
+          <End Role="lineavuelo" Type="Self.lineavuelo" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="cliente" EntityType="Self.cliente" />
+          <EntitySet Name="cuenta" EntityType="Self.cuenta" />
+          <EntitySet Name="empleado" EntityType="Self.empleado" />
+          <EntitySet Name="equipaje" EntityType="Self.equipaje" />
+          <EntitySet Name="lineavuelo" EntityType="Self.lineavuelo" />
+          <EntitySet Name="pais" EntityType="Self.pais" />
+          <EntitySet Name="pase" EntityType="Self.pase" />
+          <EntitySet Name="vuelo" EntityType="Self.vuelo" />
+          <EntitySet Name="bitacoravueloscliente" EntityType="Self.bitacoravueloscliente" />
+          <AssociationSet Name="fk_bitacoravueloscliente_cliente" Association="Self.fk_bitacoravueloscliente_cliente">
+            <End Role="cliente" EntitySet="cliente" />
+            <End Role="bitacoravueloscliente" EntitySet="bitacoravueloscliente" />
+          </AssociationSet>
+          <AssociationSet Name="fk_cliente_pais" Association="Self.fk_cliente_pais">
+            <End Role="pais" EntitySet="pais" />
+            <End Role="cliente" EntitySet="cliente" />
+          </AssociationSet>
+          <AssociationSet Name="fk_cliente_usuario" Association="Self.fk_cliente_usuario">
+            <End Role="cuenta" EntitySet="cuenta" />
+            <End Role="cliente" EntitySet="cliente" />
+          </AssociationSet>
+          <AssociationSet Name="fk_empleado_cuenta" Association="Self.fk_empleado_cuenta">
+            <End Role="cuenta" EntitySet="cuenta" />
+            <End Role="empleado" EntitySet="empleado" />
+          </AssociationSet>
+          <AssociationSet Name="fk_lineavuelo_vuelo" Association="Self.fk_lineavuelo_vuelo">
+            <End Role="vuelo" EntitySet="vuelo" />
+            <End Role="lineavuelo" EntitySet="lineavuelo" />
+          </AssociationSet>
+          <AssociationSet Name="fk_pase_lineavuelo" Association="Self.fk_pase_lineavuelo">
+            <End Role="lineavuelo" EntitySet="lineavuelo" />
+            <End Role="pase" EntitySet="pase" />
+          </AssociationSet>
+          <AssociationSet Name="fk_vuelo_destino" Association="Self.fk_vuelo_destino">
+            <End Role="pais" EntitySet="pais" />
+            <End Role="vuelo" EntitySet="vuelo" />
+          </AssociationSet>
+          <AssociationSet Name="fk_vuelo_origen" Association="Self.fk_vuelo_origen">
+            <End Role="pais" EntitySet="pais" />
+            <End Role="vuelo" EntitySet="vuelo" />
+          </AssociationSet>
+          <AssociationSet Name="equipajevuelo" Association="Self.equipajevuelo">
+            <End Role="equipaje" EntitySet="equipaje" />
+            <End Role="lineavuelo" EntitySet="lineavuelo" />
+          </AssociationSet>
+          <FunctionImport Name="cancelarVuelo" ReturnType="Collection(Int32)">
+            <Parameter Name="idPase" Mode="In" Type="Int32" />
+            <Parameter Name="pasaporte" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="checkIn" ReturnType="Collection(Int32)">
+            <Parameter Name="idPase" Mode="In" Type="Int32" />
+            <Parameter Name="pasaporte" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="consultaBitacoraVuelos" ReturnType="Collection(Model.consultaBitacoraVuelos_Result)">
+            <Parameter Name="cliente" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="consultaFitradaVuelos" ReturnType="Collection(Model.consultaFitradaVuelos_Result)">
+            <Parameter Name="nbrPaisOrigen" Mode="In" Type="String" />
+            <Parameter Name="nbrPaisDestino" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="consultaGeneralVuelos" ReturnType="Collection(Model.consultaGeneralVuelos_Result)" />
+          <FunctionImport Name="insertarAdministrador" ReturnType="Collection(Int32)">
+            <Parameter Name="idEmpleado" Mode="In" Type="Decimal" />
+            <Parameter Name="usuario" Mode="In" Type="String" />
+            <Parameter Name="nombre" Mode="In" Type="String" />
+            <Parameter Name="clave" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="insertarCliente" ReturnType="Collection(Int32)">
+            <Parameter Name="nbrUsuario" Mode="In" Type="String" />
+            <Parameter Name="clave" Mode="In" Type="String" />
+            <Parameter Name="nombre" Mode="In" Type="String" />
+            <Parameter Name="correo" Mode="In" Type="String" />
+            <Parameter Name="paisResidencia" Mode="In" Type="Int32" />
+            <Parameter Name="pasaporte" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="insertarEquipaje" ReturnType="Collection(Int32)">
+            <Parameter Name="idEquipaje" Mode="In" Type="Int32" />
+            <Parameter Name="pasaporte" Mode="In" Type="String" />
+            <Parameter Name="peso" Mode="In" Type="Decimal" />
+            <Parameter Name="idLineaVuelo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="insertarLineaVuelo" ReturnType="Collection(Int32)">
+            <Parameter Name="idLineaVuelo" Mode="In" Type="Int32" />
+            <Parameter Name="idVuelo" Mode="In" Type="Int32" />
+            <Parameter Name="horaPartida" Mode="In" Type="DateTime" />
+            <Parameter Name="horaLlegada" Mode="In" Type="DateTime" />
+            <Parameter Name="cantEscalas" Mode="In" Type="Decimal" />
+            <Parameter Name="precio" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="insertarPaseAbordar" ReturnType="Collection(Int32)">
+            <Parameter Name="idPase" Mode="In" Type="Int32" />
+            <Parameter Name="idLineaVuelo" Mode="In" Type="Int32" />
+            <Parameter Name="numeroAsiento" Mode="In" Type="String" />
+            <Parameter Name="pasaporte" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="insertarVuelo" ReturnType="Collection(Int32)">
+            <Parameter Name="idVuelo" Mode="In" Type="Int32" />
+            <Parameter Name="paisOrigen" Mode="In" Type="Int32" />
+            <Parameter Name="paisDestino" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="consultaBitacoraVuelos_Result">
+          <Property Type="String" Name="cliente" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="origen" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="destino" Nullable="true" MaxLength="20" />
+          <Property Type="DateTime" Name="horapartida" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="horallegada" Nullable="false" Precision="23" />
+          <Property Type="String" Name="estado" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="consultaFitradaVuelos_Result">
+          <Property Type="Int32" Name="idlineavuelo" Nullable="false" />
+          <Property Type="String" Name="nombre" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="nombre1" Nullable="true" MaxLength="20" />
+          <Property Type="DateTime" Name="horapartida" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="horallegada" Nullable="false" Precision="23" />
+          <Property Type="Decimal" Name="cantescalas" Nullable="true" Precision="2" Scale="0" />
+          <Property Type="Decimal" Name="precio" Nullable="true" Precision="10" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="consultaGeneralVuelos_Result">
+          <Property Type="Int32" Name="idlineavuelo" Nullable="false" />
+          <Property Type="String" Name="nombre" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="nombre1" Nullable="true" MaxLength="20" />
+          <Property Type="DateTime" Name="horapartida" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="horallegada" Nullable="false" Precision="23" />
+          <Property Type="Decimal" Name="cantescalas" Nullable="true" Precision="2" Scale="0" />
+          <Property Type="Decimal" Name="precio" Nullable="true" Precision="10" Scale="2" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="cliente">
+            <EntityTypeMapping TypeName="Model.cliente">
+              <MappingFragment StoreEntitySet="cliente">
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="paisresidencia" ColumnName="paisresidencia" />
+                <ScalarProperty Name="pasaporte" ColumnName="pasaporte" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cuenta">
+            <EntityTypeMapping TypeName="Model.cuenta">
+              <MappingFragment StoreEntitySet="cuenta">
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="clave" ColumnName="clave" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="empleado">
+            <EntityTypeMapping TypeName="Model.empleado">
+              <MappingFragment StoreEntitySet="empleado">
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="idempleado" ColumnName="idempleado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="equipaje">
+            <EntityTypeMapping TypeName="Model.equipaje">
+              <MappingFragment StoreEntitySet="equipaje">
+                <ScalarProperty Name="idequipaje" ColumnName="idequipaje" />
+                <ScalarProperty Name="cliente" ColumnName="cliente" />
+                <ScalarProperty Name="peso" ColumnName="peso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="lineavuelo">
+            <EntityTypeMapping TypeName="Model.lineavuelo">
+              <MappingFragment StoreEntitySet="lineavuelo">
+                <ScalarProperty Name="idlineavuelo" ColumnName="idlineavuelo" />
+                <ScalarProperty Name="idvuelo" ColumnName="idvuelo" />
+                <ScalarProperty Name="horapartida" ColumnName="horapartida" />
+                <ScalarProperty Name="horallegada" ColumnName="horallegada" />
+                <ScalarProperty Name="cantescalas" ColumnName="cantescalas" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pais">
+            <EntityTypeMapping TypeName="Model.pais">
+              <MappingFragment StoreEntitySet="pais">
+                <ScalarProperty Name="idpais" ColumnName="idpais" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pase">
+            <EntityTypeMapping TypeName="Model.pase">
+              <MappingFragment StoreEntitySet="pase">
+                <ScalarProperty Name="idpase" ColumnName="idpase" />
+                <ScalarProperty Name="idlineavuelo" ColumnName="idlineavuelo" />
+                <ScalarProperty Name="numeroasiento" ColumnName="numeroasiento" />
+                <ScalarProperty Name="pasaporte" ColumnName="pasaporte" />
+                <ScalarProperty Name="usado" ColumnName="usado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vuelo">
+            <EntityTypeMapping TypeName="Model.vuelo">
+              <MappingFragment StoreEntitySet="vuelo">
+                <ScalarProperty Name="idvuelo" ColumnName="idvuelo" />
+                <ScalarProperty Name="origen" ColumnName="origen" />
+                <ScalarProperty Name="destino" ColumnName="destino" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bitacoravueloscliente">
+            <EntityTypeMapping TypeName="Model.bitacoravueloscliente">
+              <MappingFragment StoreEntitySet="bitacoravueloscliente">
+                <ScalarProperty Name="cliente" ColumnName="cliente" />
+                <ScalarProperty Name="origen" ColumnName="origen" />
+                <ScalarProperty Name="destino" ColumnName="destino" />
+                <ScalarProperty Name="horapartida" ColumnName="horapartida" />
+                <ScalarProperty Name="horallegada" ColumnName="horallegada" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="equipajevuelo" TypeName="Model.equipajevuelo" StoreEntitySet="equipajevuelo">
+            <EndProperty Name="equipaje">
+              <ScalarProperty Name="idequipaje" ColumnName="idequipaje" />
+            </EndProperty>
+            <EndProperty Name="lineavuelo">
+              <ScalarProperty Name="idlineavuelo" ColumnName="idlineavuelo" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="cancelarVuelo" FunctionName="Model.Store.cancelarVuelo" />
+          <FunctionImportMapping FunctionImportName="checkIn" FunctionName="Model.Store.checkIn" />
+          <FunctionImportMapping FunctionImportName="consultaBitacoraVuelos" FunctionName="Model.Store.consultaBitacoraVuelos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.consultaBitacoraVuelos_Result">
+                <ScalarProperty Name="cliente" ColumnName="cliente" />
+                <ScalarProperty Name="origen" ColumnName="origen" />
+                <ScalarProperty Name="destino" ColumnName="destino" />
+                <ScalarProperty Name="horapartida" ColumnName="horapartida" />
+                <ScalarProperty Name="horallegada" ColumnName="horallegada" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="consultaFitradaVuelos" FunctionName="Model.Store.consultaFitradaVuelos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.consultaFitradaVuelos_Result">
+                <ScalarProperty Name="idlineavuelo" ColumnName="idlineavuelo" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="nombre1" ColumnName="nombre1" />
+                <ScalarProperty Name="horapartida" ColumnName="horapartida" />
+                <ScalarProperty Name="horallegada" ColumnName="horallegada" />
+                <ScalarProperty Name="cantescalas" ColumnName="cantescalas" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="consultaGeneralVuelos" FunctionName="Model.Store.consultaGeneralVuelos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.consultaGeneralVuelos_Result">
+                <ScalarProperty Name="idlineavuelo" ColumnName="idlineavuelo" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="nombre1" ColumnName="nombre1" />
+                <ScalarProperty Name="horapartida" ColumnName="horapartida" />
+                <ScalarProperty Name="horallegada" ColumnName="horallegada" />
+                <ScalarProperty Name="cantescalas" ColumnName="cantescalas" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="insertarAdministrador" FunctionName="Model.Store.insertarAdministrador" />
+          <FunctionImportMapping FunctionImportName="insertarCliente" FunctionName="Model.Store.insertarCliente" />
+          <FunctionImportMapping FunctionImportName="insertarEquipaje" FunctionName="Model.Store.insertarEquipaje" />
+          <FunctionImportMapping FunctionImportName="insertarLineaVuelo" FunctionName="Model.Store.insertarLineaVuelo" />
+          <FunctionImportMapping FunctionImportName="insertarPaseAbordar" FunctionName="Model.Store.insertarPaseAbordar" />
+          <FunctionImportMapping FunctionImportName="insertarVuelo" FunctionName="Model.Store.insertarVuelo" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
