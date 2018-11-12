@@ -8,11 +8,11 @@
         <EntityTypeShape EntityType="Model.cliente" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.cuenta" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.empleado" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.equipaje" Width="1.5" PointX="3" PointY="10" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.lineavuelo" Width="1.5" PointX="5.25" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.equipaje" Width="1.5" PointX="7.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.lineavuelo" Width="1.5" PointX="5.25" PointY="5.875" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.pais" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.pase" Width="1.5" PointX="7.5" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.vuelo" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.pase" Width="1.5" PointX="7.375" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.vuelo" Width="1.5" PointX="3.125" PointY="6.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.bitacoravueloscliente" Width="1.5" PointX="5.25" PointY="2.5" IsExpanded="true" />
         <AssociationConnector Association="Model.fk_bitacoravueloscliente_cliente" ManuallyRouted="false" />
         <AssociationConnector Association="Model.fk_cliente_pais" ManuallyRouted="false" />

@@ -14,11 +14,11 @@ namespace VuelaWebApp.Models
     public partial class consultaFitradaVuelos_Result
     {
         public int idlineavuelo { get; set; }
-        public string nombre { get; set; }
-        public string nombre1 { get; set; }
         public System.DateTime horapartida { get; set; }
         public System.DateTime horallegada { get; set; }
         public Nullable<decimal> cantescalas { get; set; }
         public Nullable<decimal> precio { get; set; }
+        public string paisOrigen { get; set; }
+        public string paisDestino { get; set; }
     }
 }

@@ -636,7 +636,7 @@ advertencia 6035: La relación 'fk_pase_cliente' tiene columnas que no forman pa
           <FunctionImport Name="consultaBitacoraVuelos" ReturnType="Collection(Model.consultaBitacoraVuelos_Result)">
           <Parameter Name="cliente" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="consultaFitradaVuelos" ReturnType="Collection(Model.consultaFitradaVuelos_Result)">
+          <FunctionImport Name="consultaFitradaVuelos" ReturnType="Collection(Model.consultaGeneralVuelos_Result)">
             <Parameter Name="nbrPaisOrigen" Mode="In" Type="String" />
             <Parameter Name="nbrPaisDestino" Mode="In" Type="String" />
           </FunctionImport>
@@ -686,7 +686,7 @@ advertencia 6035: La relación 'fk_pase_cliente' tiene columnas que no forman pa
             <Parameter Name="idLineaVuelo" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="tipoUsuario" ReturnType="Collection(String)">
-            <Parameter Name="usuario" Mode="In" Type="String" />
+          <Parameter Name="usuario" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="consultaBitacoraVuelos_Result">
@@ -699,21 +699,21 @@ advertencia 6035: La relación 'fk_pase_cliente' tiene columnas que no forman pa
         </ComplexType>
         <ComplexType Name="consultaFitradaVuelos_Result">
           <Property Type="Int32" Name="idlineavuelo" Nullable="false" />
-          <Property Type="String" Name="nombre" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="nombre1" Nullable="true" MaxLength="20" />
           <Property Type="DateTime" Name="horapartida" Nullable="false" Precision="23" />
           <Property Type="DateTime" Name="horallegada" Nullable="false" Precision="23" />
           <Property Type="Decimal" Name="cantescalas" Nullable="true" Precision="2" Scale="0" />
           <Property Type="Decimal" Name="precio" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="String" Name="paisOrigen" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="paisDestino" Nullable="true" MaxLength="20" />
         </ComplexType>
         <ComplexType Name="consultaGeneralVuelos_Result">
           <Property Type="Int32" Name="idlineavuelo" Nullable="false" />
-          <Property Type="String" Name="nombre" Nullable="true" MaxLength="20" />
-          <Property Type="String" Name="nombre1" Nullable="true" MaxLength="20" />
           <Property Type="DateTime" Name="horapartida" Nullable="false" Precision="23" />
           <Property Type="DateTime" Name="horallegada" Nullable="false" Precision="23" />
           <Property Type="Decimal" Name="cantescalas" Nullable="true" Precision="2" Scale="0" />
           <Property Type="Decimal" Name="precio" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="String" Name="paisOrigen" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="paisDestino" Nullable="true" MaxLength="20" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -832,15 +832,15 @@ advertencia 6035: La relación 'fk_pase_cliente' tiene columnas que no forman pa
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="consultaFitradaVuelos" FunctionName="Model.Store.consultaFitradaVuelos">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="Model.consultaFitradaVuelos_Result">
+          <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.consultaGeneralVuelos_Result">
                 <ScalarProperty Name="idlineavuelo" ColumnName="idlineavuelo" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="nombre1" ColumnName="nombre1" />
                 <ScalarProperty Name="horapartida" ColumnName="horapartida" />
                 <ScalarProperty Name="horallegada" ColumnName="horallegada" />
                 <ScalarProperty Name="cantescalas" ColumnName="cantescalas" />
                 <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="paisOrigen" ColumnName="paisOrigen" />
+                <ScalarProperty Name="paisDestino" ColumnName="paisDestino" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -848,12 +848,12 @@ advertencia 6035: La relación 'fk_pase_cliente' tiene columnas que no forman pa
             <ResultMapping>
               <ComplexTypeMapping TypeName="Model.consultaGeneralVuelos_Result">
                 <ScalarProperty Name="idlineavuelo" ColumnName="idlineavuelo" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="nombre1" ColumnName="nombre1" />
                 <ScalarProperty Name="horapartida" ColumnName="horapartida" />
                 <ScalarProperty Name="horallegada" ColumnName="horallegada" />
                 <ScalarProperty Name="cantescalas" ColumnName="cantescalas" />
                 <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="paisOrigen" ColumnName="paisOrigen" />
+                <ScalarProperty Name="paisDestino" ColumnName="paisDestino" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

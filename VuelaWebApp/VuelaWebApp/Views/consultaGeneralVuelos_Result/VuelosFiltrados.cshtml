@@ -1,0 +1,83 @@
+﻿@model IEnumerable<VuelaWebApp.Models.consultaGeneralVuelos_Result>
+
+@{
+    ViewBag.Title = "VuelosFiltrados";
+}
+
+<h2>Vuelos Filtrados</h2>
+
+@using (Html.BeginForm("VuelosFiltrados", "consultaGeneralVuelos_Result", FormMethod.Get))
+{
+    <div class="row">
+        <div class="form-group col-md-6">
+            <label for="paisOrigen">Pais Origen</label>
+            <input type="text" class="form-control" id="paisOrigen" name="paisOrigen" placeholder="Pais Origen">
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="paisDestino">Pais Destino</label>
+            <input type="text" class="form-control" id="paisDestino" name="paisDestino" placeholder="Pais Destino">
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="pConsultar">Filtrar</label>
+            <input type="submit" value="Filtrar" class="btn btn-default" />
+        </div>
+    </div>
+}
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.idlineavuelo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.paisOrigen)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.paisDestino)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.horapartida)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.horallegada)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cantescalas)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.precio)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.idlineavuelo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.paisOrigen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.paisDestino)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.horapartida)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.horallegada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cantescalas)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.precio)
+            </td>
+        </tr>
+    }
+
+</table>

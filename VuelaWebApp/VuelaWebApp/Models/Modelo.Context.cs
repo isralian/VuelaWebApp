@@ -72,7 +72,7 @@ namespace VuelaWebApp.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<consultaBitacoraVuelos_Result>("consultaBitacoraVuelos", clienteParameter);
         }
     
-        public virtual ObjectResult<consultaFitradaVuelos_Result> consultaFitradaVuelos(string nbrPaisOrigen, string nbrPaisDestino)
+        public virtual ObjectResult<consultaGeneralVuelos_Result> consultaFitradaVuelos(string nbrPaisOrigen, string nbrPaisDestino)
         {
             var nbrPaisOrigenParameter = nbrPaisOrigen != null ?
                 new ObjectParameter("nbrPaisOrigen", nbrPaisOrigen) :
@@ -82,7 +82,7 @@ namespace VuelaWebApp.Models
                 new ObjectParameter("nbrPaisDestino", nbrPaisDestino) :
                 new ObjectParameter("nbrPaisDestino", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<consultaFitradaVuelos_Result>("consultaFitradaVuelos", nbrPaisOrigenParameter, nbrPaisDestinoParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<consultaGeneralVuelos_Result>("consultaFitradaVuelos", nbrPaisOrigenParameter, nbrPaisDestinoParameter);
         }
     
         public virtual ObjectResult<consultaGeneralVuelos_Result> consultaGeneralVuelos()
