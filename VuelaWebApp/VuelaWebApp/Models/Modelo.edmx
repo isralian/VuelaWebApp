@@ -641,13 +641,13 @@ advertencia 6035: La relación 'fk_pase_cliente' tiene columnas que no forman pa
             <Parameter Name="nbrPaisDestino" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="consultaGeneralVuelos" ReturnType="Collection(Model.consultaGeneralVuelos_Result)" />
-          <FunctionImport Name="insertarAdministrador" ReturnType="Collection(Int32)">
+          <FunctionImport Name="insertarAdministrador">
             <Parameter Name="idEmpleado" Mode="In" Type="Decimal" />
             <Parameter Name="usuario" Mode="In" Type="String" />
             <Parameter Name="nombre" Mode="In" Type="String" />
             <Parameter Name="clave" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="insertarCliente" ReturnType="Collection(Int32)">
+          <FunctionImport Name="insertarCliente">
             <Parameter Name="nbrUsuario" Mode="In" Type="String" />
             <Parameter Name="clave" Mode="In" Type="String" />
             <Parameter Name="nombre" Mode="In" Type="String" />
@@ -655,13 +655,13 @@ advertencia 6035: La relación 'fk_pase_cliente' tiene columnas que no forman pa
             <Parameter Name="paisResidencia" Mode="In" Type="Int32" />
             <Parameter Name="pasaporte" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="insertarEquipaje" ReturnType="Collection(Int32)">
+          <FunctionImport Name="insertarEquipaje">
             <Parameter Name="idEquipaje" Mode="In" Type="Int32" />
             <Parameter Name="pasaporte" Mode="In" Type="String" />
             <Parameter Name="peso" Mode="In" Type="Decimal" />
             <Parameter Name="idLineaVuelo" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="insertarLineaVuelo" ReturnType="Collection(Int32)">
+          <FunctionImport Name="insertarLineaVuelo">
             <Parameter Name="idLineaVuelo" Mode="In" Type="Int32" />
             <Parameter Name="idVuelo" Mode="In" Type="Int32" />
             <Parameter Name="horaPartida" Mode="In" Type="DateTime" />
@@ -669,13 +669,13 @@ advertencia 6035: La relación 'fk_pase_cliente' tiene columnas que no forman pa
             <Parameter Name="cantEscalas" Mode="In" Type="Decimal" />
             <Parameter Name="precio" Mode="In" Type="Decimal" />
           </FunctionImport>
-          <FunctionImport Name="insertarPaseAbordar" ReturnType="Collection(Int32)">
+          <FunctionImport Name="insertarPaseAbordar">
             <Parameter Name="idPase" Mode="In" Type="Int32" />
             <Parameter Name="idLineaVuelo" Mode="In" Type="Int32" />
             <Parameter Name="numeroAsiento" Mode="In" Type="String" />
             <Parameter Name="pasaporte" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="insertarVuelo" ReturnType="Collection(Int32)">
+          <FunctionImport Name="insertarVuelo">
             <Parameter Name="idVuelo" Mode="In" Type="Int32" />
             <Parameter Name="paisOrigen" Mode="In" Type="Int32" />
             <Parameter Name="paisDestino" Mode="In" Type="Int32" />
@@ -723,6 +723,26 @@ advertencia 6035: La relación 'fk_pase_cliente' tiene columnas que no forman pa
           <Property Type="Int32" Name="idPase" Nullable="false" />
           <Property Type="String" Name="pasaporte" Nullable="false" FixedLength="false" MaxLength="20" Unicode="false" />
           <Property Type="Int32" Name="idLineaVuelo" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="crearCliente" >
+          <Property Type="String" Name="usuario" Nullable="false" FixedLength="false" MaxLength="20" Unicode="false" />
+          <Property Type="String" Name="nombre" Nullable="false" FixedLength="false" MaxLength="50" Unicode="false" />
+          <Property Type="String" Name="clave" Nullable="false" FixedLength="false" MaxLength="20" Unicode="false" />
+          <Property Type="String" Name="pasaporte" Nullable="false" FixedLength="false" Unicode="false" MaxLength="20" />
+          <Property Type="String" Name="correo" Nullable="false" FixedLength="false" Unicode="false" MaxLength="50" />
+          <Property Type="Int32" Name="paisResidencia" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="Administrador" >
+          <Property Type="String" Name="usuario" Nullable="false" />
+          <Property Type="Decimal" Name="idempleado" Nullable="false" Precision="10" />
+          <Property Type="String" Name="nombre" Nullable="false" FixedLength="false" MaxLength="50" Unicode="false" />
+          <Property Type="String" Name="clave" Nullable="false" FixedLength="false" MaxLength="20" Unicode="false" />
+        </ComplexType>
+        <ComplexType Name="crearEquipaje" >
+          <Property Type="Int32" Name="idequipaje" Nullable="false" />
+          <Property Type="String" Name="pasaporte" Nullable="false" FixedLength="false" MaxLength="20" Unicode="false" />
+          <Property Type="Decimal" Name="peso" Nullable="false" Scale="2" Precision="10" />
+          <Property Type="Int32" Name="idlineavuelo" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>

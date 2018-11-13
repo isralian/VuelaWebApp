@@ -150,14 +150,20 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdministradorController.cs" />
     <Compile Include="Controllers\cambiarVuelosController.cs" />
     <Compile Include="Controllers\consultaBitacoraVuelos_ResultController.cs" />
     <Compile Include="Controllers\consultaGeneralVuelos_ResultController.cs" />
+    <Compile Include="Controllers\crearClienteController.cs" />
+    <Compile Include="Controllers\crearEquipajeController.cs" />
     <Compile Include="Controllers\gestionVuelosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Administrador.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\bitacoravueloscliente.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
@@ -175,6 +181,12 @@
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\consultaGeneralVuelos_Result.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\crearCliente.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\crearEquipaje.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\cuenta.cs">
@@ -282,6 +294,11 @@
     <Content Include="Views\gestionVuelos\CheckIn.cshtml" />
     <Content Include="Views\gestionVuelos\CancelarVuelo.cshtml" />
     <Content Include="Views\cambiarVuelos\CambiarVuelo.cshtml" />
+    <Content Include="Views\Administrador\Create.cshtml" />
+    <Content Include="Views\crearCliente\Create.cshtml" />
+    <Content Include="Views\crearEquipaje\Create.cshtml" />
+    <Content Include="Views\gestionVuelos\CheckInAdmin.cshtml" />
+    <Content Include="Views\Shared\_LayoutLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

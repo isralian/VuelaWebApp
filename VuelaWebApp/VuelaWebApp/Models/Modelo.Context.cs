@@ -90,7 +90,7 @@ namespace VuelaWebApp.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<consultaGeneralVuelos_Result>("consultaGeneralVuelos");
         }
     
-        public virtual ObjectResult<Nullable<int>> insertarAdministrador(Nullable<decimal> idEmpleado, string usuario, string nombre, string clave)
+        public virtual int insertarAdministrador(Nullable<decimal> idEmpleado, string usuario, string nombre, string clave)
         {
             var idEmpleadoParameter = idEmpleado.HasValue ?
                 new ObjectParameter("idEmpleado", idEmpleado) :
@@ -108,10 +108,10 @@ namespace VuelaWebApp.Models
                 new ObjectParameter("clave", clave) :
                 new ObjectParameter("clave", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("insertarAdministrador", idEmpleadoParameter, usuarioParameter, nombreParameter, claveParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("insertarAdministrador", idEmpleadoParameter, usuarioParameter, nombreParameter, claveParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> insertarCliente(string nbrUsuario, string clave, string nombre, string correo, Nullable<int> paisResidencia, string pasaporte)
+        public virtual int insertarCliente(string nbrUsuario, string clave, string nombre, string correo, Nullable<int> paisResidencia, string pasaporte)
         {
             var nbrUsuarioParameter = nbrUsuario != null ?
                 new ObjectParameter("nbrUsuario", nbrUsuario) :
@@ -137,10 +137,10 @@ namespace VuelaWebApp.Models
                 new ObjectParameter("pasaporte", pasaporte) :
                 new ObjectParameter("pasaporte", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("insertarCliente", nbrUsuarioParameter, claveParameter, nombreParameter, correoParameter, paisResidenciaParameter, pasaporteParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("insertarCliente", nbrUsuarioParameter, claveParameter, nombreParameter, correoParameter, paisResidenciaParameter, pasaporteParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> insertarEquipaje(Nullable<int> idEquipaje, string pasaporte, Nullable<decimal> peso, Nullable<int> idLineaVuelo)
+        public virtual int insertarEquipaje(Nullable<int> idEquipaje, string pasaporte, Nullable<decimal> peso, Nullable<int> idLineaVuelo)
         {
             var idEquipajeParameter = idEquipaje.HasValue ?
                 new ObjectParameter("idEquipaje", idEquipaje) :
@@ -158,10 +158,10 @@ namespace VuelaWebApp.Models
                 new ObjectParameter("idLineaVuelo", idLineaVuelo) :
                 new ObjectParameter("idLineaVuelo", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("insertarEquipaje", idEquipajeParameter, pasaporteParameter, pesoParameter, idLineaVueloParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("insertarEquipaje", idEquipajeParameter, pasaporteParameter, pesoParameter, idLineaVueloParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> insertarLineaVuelo(Nullable<int> idLineaVuelo, Nullable<int> idVuelo, Nullable<System.DateTime> horaPartida, Nullable<System.DateTime> horaLlegada, Nullable<decimal> cantEscalas, Nullable<decimal> precio)
+        public virtual int insertarLineaVuelo(Nullable<int> idLineaVuelo, Nullable<int> idVuelo, Nullable<System.DateTime> horaPartida, Nullable<System.DateTime> horaLlegada, Nullable<decimal> cantEscalas, Nullable<decimal> precio)
         {
             var idLineaVueloParameter = idLineaVuelo.HasValue ?
                 new ObjectParameter("idLineaVuelo", idLineaVuelo) :
@@ -187,10 +187,10 @@ namespace VuelaWebApp.Models
                 new ObjectParameter("precio", precio) :
                 new ObjectParameter("precio", typeof(decimal));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("insertarLineaVuelo", idLineaVueloParameter, idVueloParameter, horaPartidaParameter, horaLlegadaParameter, cantEscalasParameter, precioParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("insertarLineaVuelo", idLineaVueloParameter, idVueloParameter, horaPartidaParameter, horaLlegadaParameter, cantEscalasParameter, precioParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> insertarPaseAbordar(Nullable<int> idPase, Nullable<int> idLineaVuelo, string numeroAsiento, string pasaporte)
+        public virtual int insertarPaseAbordar(Nullable<int> idPase, Nullable<int> idLineaVuelo, string numeroAsiento, string pasaporte)
         {
             var idPaseParameter = idPase.HasValue ?
                 new ObjectParameter("idPase", idPase) :
@@ -208,10 +208,10 @@ namespace VuelaWebApp.Models
                 new ObjectParameter("pasaporte", pasaporte) :
                 new ObjectParameter("pasaporte", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("insertarPaseAbordar", idPaseParameter, idLineaVueloParameter, numeroAsientoParameter, pasaporteParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("insertarPaseAbordar", idPaseParameter, idLineaVueloParameter, numeroAsientoParameter, pasaporteParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> insertarVuelo(Nullable<int> idVuelo, Nullable<int> paisOrigen, Nullable<int> paisDestino)
+        public virtual int insertarVuelo(Nullable<int> idVuelo, Nullable<int> paisOrigen, Nullable<int> paisDestino)
         {
             var idVueloParameter = idVuelo.HasValue ?
                 new ObjectParameter("idVuelo", idVuelo) :
@@ -225,7 +225,7 @@ namespace VuelaWebApp.Models
                 new ObjectParameter("paisDestino", paisDestino) :
                 new ObjectParameter("paisDestino", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("insertarVuelo", idVueloParameter, paisOrigenParameter, paisDestinoParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("insertarVuelo", idVueloParameter, paisOrigenParameter, paisDestinoParameter);
         }
     
         public virtual int cambiarVuelo(Nullable<int> idPase, string pasaporte, Nullable<int> idLineaVuelo)

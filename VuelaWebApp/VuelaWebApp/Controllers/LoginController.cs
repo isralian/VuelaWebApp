@@ -33,23 +33,23 @@ namespace VuelaWebApp.Controllers
                             empleado empleado = new empleado();
                             empleado.usuario = u.usuario;
                             Session["USER"] = empleado.usuario;
-                            return RedirectToAction("Index", "Home");
+                            return RedirectToAction("About", "Home");
                         }
                         else if(tipo == "cliente")
                         {
                             cliente cliente = new cliente();
                             cliente.usuario = u.usuario;
                             Session["USER"] = cliente.usuario;
-                            return RedirectToAction("HistorialVuelos", "consultaBitacoraVuelos_Result");
+                            return RedirectToAction("Index", "Home");
                         }
                         else
                         {
-                            ViewBag.Error = "Correo o Contraseña incorrecta";
+                            ViewBag.Error = "Error con su cuenta";
                         }
                     }
                     else
                     {
-                        ViewBag.Error = "La cuenta no existe";
+                        ViewBag.Error = "Correo o Password incorrectos. intentelo de nuevo.";
                     }
                 }
             }

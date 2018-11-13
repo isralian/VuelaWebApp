@@ -1,7 +1,12 @@
 ﻿@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
     ViewBag.Title = "About";
+    if (Session["USER"] == null)
+    {
+        Response.Redirect("~/Login/Login");
+    }
+    String userName = (Session["USER"]).ToString();
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<p>Use this area to provide additional information.</p>
+<h1>Bienvenido a Vuela S.A. Administrador.</h1>
+
