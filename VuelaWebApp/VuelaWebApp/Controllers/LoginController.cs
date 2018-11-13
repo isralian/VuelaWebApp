@@ -40,7 +40,7 @@ namespace VuelaWebApp.Controllers
                             cliente cliente = new cliente();
                             cliente.usuario = u.usuario;
                             Session["USER"] = cliente.usuario;
-                            return RedirectToAction("About", "Home");
+                            return RedirectToAction("HistorialVuelos", "consultaBitacoraVuelos_Result");
                         }
                         else
                         {

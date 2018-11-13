@@ -150,13 +150,19 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\cambiarVuelosController.cs" />
+    <Compile Include="Controllers\consultaBitacoraVuelos_ResultController.cs" />
     <Compile Include="Controllers\consultaGeneralVuelos_ResultController.cs" />
+    <Compile Include="Controllers\gestionVuelosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\bitacoravueloscliente.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\cambiarVuelo.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\cliente.cs">
@@ -178,6 +184,9 @@
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\equipaje.cs">
+      <DependentUpon>Modelo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\gestionVuelo.cs">
       <DependentUpon>Modelo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\lineavuelo.cs">
@@ -269,6 +278,10 @@
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\consultaGeneralVuelos_Result\VuelosLista.cshtml" />
     <Content Include="Views\consultaGeneralVuelos_Result\VuelosFiltrados.cshtml" />
+    <Content Include="Views\consultaBitacoraVuelos_Result\HistorialVuelos.cshtml" />
+    <Content Include="Views\gestionVuelos\CheckIn.cshtml" />
+    <Content Include="Views\gestionVuelos\CancelarVuelo.cshtml" />
+    <Content Include="Views\cambiarVuelos\CambiarVuelo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

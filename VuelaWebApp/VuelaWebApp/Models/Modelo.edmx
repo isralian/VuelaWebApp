@@ -625,11 +625,11 @@ advertencia 6035: La relación 'fk_pase_cliente' tiene columnas que no forman pa
             <End Role="equipaje" EntitySet="equipaje" />
             <End Role="lineavuelo" EntitySet="lineavuelo" />
           </AssociationSet>
-          <FunctionImport Name="cancelarVuelo" ReturnType="Collection(Int32)">
+          <FunctionImport Name="cancelarVuelo">
             <Parameter Name="idPase" Mode="In" Type="Int32" />
             <Parameter Name="pasaporte" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="checkIn" ReturnType="Collection(Int32)">
+          <FunctionImport Name="checkIn">
             <Parameter Name="idPase" Mode="In" Type="Int32" />
             <Parameter Name="pasaporte" Mode="In" Type="String" />
           </FunctionImport>
@@ -680,7 +680,7 @@ advertencia 6035: La relación 'fk_pase_cliente' tiene columnas que no forman pa
             <Parameter Name="paisOrigen" Mode="In" Type="Int32" />
             <Parameter Name="paisDestino" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="cambiarVuelo" ReturnType="Collection(Int32)">
+          <FunctionImport Name="cambiarVuelo">
             <Parameter Name="idPase" Mode="In" Type="Int32" />
             <Parameter Name="pasaporte" Mode="In" Type="String" />
             <Parameter Name="idLineaVuelo" Mode="In" Type="Int32" />
@@ -714,6 +714,15 @@ advertencia 6035: La relación 'fk_pase_cliente' tiene columnas que no forman pa
           <Property Type="Decimal" Name="precio" Nullable="true" Precision="10" Scale="2" />
           <Property Type="String" Name="paisOrigen" Nullable="true" MaxLength="20" />
           <Property Type="String" Name="paisDestino" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="gestionVuelo" >
+          <Property Type="Int32" Name="idPase" Nullable="false" />
+          <Property Type="String" Name="pasaporte" Nullable="false" FixedLength="false" MaxLength="20" Unicode="false" />
+        </ComplexType>
+        <ComplexType Name="cambiarVuelo" >
+          <Property Type="Int32" Name="idPase" Nullable="false" />
+          <Property Type="String" Name="pasaporte" Nullable="false" FixedLength="false" MaxLength="20" Unicode="false" />
+          <Property Type="Int32" Name="idLineaVuelo" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>

@@ -1,0 +1,55 @@
+﻿@model IEnumerable<VuelaWebApp.Models.consultaBitacoraVuelos_Result>
+
+@{
+    ViewBag.Title="HistorialVuelos";
+    if (Session["USER"] == null)
+    {
+        Response.Redirect("~/Login/Login");
+    }
+    String userName = (Session["USER"]).ToString();
+}
+
+<h2>Historial de Vuelo</h2>
+<hr />
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PaisOrigen)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaisDestino)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HoraPartida)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HoraLlegada)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaisOrigen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaisDestino)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoraPartida)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoraLlegada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+        </tr>
+    }
+    
+    </table>

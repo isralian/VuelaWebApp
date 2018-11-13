@@ -2,6 +2,11 @@
 
 @{
     ViewBag.Title = "VuelosLista";
+    if (Session["USER"] == null)
+    {
+        Response.Redirect("~/Login/Login");
+    }
+    String userName = (Session["USER"]).ToString();
 }
 
 <h2>Vuelos Disponibles</h2>

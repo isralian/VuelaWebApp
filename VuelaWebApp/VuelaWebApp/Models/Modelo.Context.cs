@@ -37,7 +37,7 @@ namespace VuelaWebApp.Models
         public virtual DbSet<vuelo> vuelo { get; set; }
         public virtual DbSet<bitacoravueloscliente> bitacoravueloscliente { get; set; }
     
-        public virtual ObjectResult<Nullable<int>> cancelarVuelo(Nullable<int> idPase, string pasaporte)
+        public virtual int cancelarVuelo(Nullable<int> idPase, string pasaporte)
         {
             var idPaseParameter = idPase.HasValue ?
                 new ObjectParameter("idPase", idPase) :
@@ -47,10 +47,10 @@ namespace VuelaWebApp.Models
                 new ObjectParameter("pasaporte", pasaporte) :
                 new ObjectParameter("pasaporte", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("cancelarVuelo", idPaseParameter, pasaporteParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("cancelarVuelo", idPaseParameter, pasaporteParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> checkIn(Nullable<int> idPase, string pasaporte)
+        public virtual int checkIn(Nullable<int> idPase, string pasaporte)
         {
             var idPaseParameter = idPase.HasValue ?
                 new ObjectParameter("idPase", idPase) :
@@ -60,7 +60,7 @@ namespace VuelaWebApp.Models
                 new ObjectParameter("pasaporte", pasaporte) :
                 new ObjectParameter("pasaporte", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("checkIn", idPaseParameter, pasaporteParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("checkIn", idPaseParameter, pasaporteParameter);
         }
     
         public virtual ObjectResult<consultaBitacoraVuelos_Result> consultaBitacoraVuelos(string cliente)
@@ -228,7 +228,7 @@ namespace VuelaWebApp.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("insertarVuelo", idVueloParameter, paisOrigenParameter, paisDestinoParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> cambiarVuelo(Nullable<int> idPase, string pasaporte, Nullable<int> idLineaVuelo)
+        public virtual int cambiarVuelo(Nullable<int> idPase, string pasaporte, Nullable<int> idLineaVuelo)
         {
             var idPaseParameter = idPase.HasValue ?
                 new ObjectParameter("idPase", idPase) :
@@ -242,7 +242,7 @@ namespace VuelaWebApp.Models
                 new ObjectParameter("idLineaVuelo", idLineaVuelo) :
                 new ObjectParameter("idLineaVuelo", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("cambiarVuelo", idPaseParameter, pasaporteParameter, idLineaVueloParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("cambiarVuelo", idPaseParameter, pasaporteParameter, idLineaVueloParameter);
         }
     
         public virtual ObjectResult<string> tipoUsuario(string usuario)
